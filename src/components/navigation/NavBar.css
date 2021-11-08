@@ -1,0 +1,28 @@
+.navbar {
+    background: black;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    max-width: 600px; 
+    margin: 0 auto;
+    border-bottom: 1px solid black
+}
+h1 {
+    
+    color:black;
+}
+
+.links {
+    background: black;
+    margin-left: auto;
+}
+
+a {
+    color:black;
+    margin-left: 16px; 
+    text-decoration: none;
+    padding: 6px; 
+}
+a:hover {
+    color: white; 
+}

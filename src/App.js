@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import NewMovie from "./components/Movie/NewMovie";
+import NavBar from "./components/navigation/NavBar";
+import List from "./components/Movie/List";
 
-function App() {
+function App () {
+  const [moviesList, setMoviesList] = useState([]);
+  const newMovieHandler = (movieName, releaseYear, director, price) => {
+    setMoviesList((prevMoviesList) => {
+      return [...prevMoviesList, 
+        {id: Math.trunc(Math.random()*6), 
+          movieName, releaseYear, director, price}];
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="content">
+      <NavBar />
+      <NewMovie onNewMovie = {newMovieHandler} />
+      <List movie={moviesList} />
     </div>
-  );
+  )
 }
 
 export default App;
