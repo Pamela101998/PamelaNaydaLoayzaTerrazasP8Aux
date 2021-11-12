@@ -1,53 +1,53 @@
-import React, {useState, useReducer} from "react";
+import React, {useState, useContext, useReducer  } from "react";
 import Card from "../UI/Card";
 import Button from "../UI//Button";
+import AuthContext from "../store/auth-context"
 
-
-const emailReducer= (state, action)=> {
-    if (action.type === "USER INPUT") {
+const emailReducer = (state, action) => {
+    if (action.type === "USER_INPUT") {
         return {
-            Value: action.val,
-            isValid: action.val.includes("@gmail.com"),
-            isValid: action.val.includes("@hotmail.com"),
-            isValid: action.val.includes("yahoo.com"),
+            value: action.val,
+            isValid: action.val.includes("@gmail"),
         };
     }
-    return{
+    return {
         value: "",
         isValid: false,
-    }
+    };
 };
 
-const Login =(props) => {
-    //const [email, setEmail] = useState(""); 
+const Login = (props) => {
+const ctx = useContext (AuthContext);
+
+    // const [email, setEmail] = useState(""); 
     const [password, setPassword] = useState("");
 
-    const [email, dispatchEmail] = useReducer(emailReducer, {
-        value: "",
-        isValid: null,
-    });
-    
+   const [email, dispatchEmail] = useReducer (emailReducer, {
+       value: "",
+       isValid: null,
+   }); 
+ 
     const emailChangeHandler = (e) => { 
-        //console.log(e. target.value);
-        //setEmail(e.target.value);
-        dispatchEmail ({
-            value: e.target.value,
+        // console.log(e.target.value);
+        // setEmail(e.target.value);
+        dispatchEmail({
+            val: e.target.value,
             type: "USER_INPUT",
         });
     };
     
     const passwordChangeHandler = (e) => { 
-        //console.log(e. target. value); 
+        // console.log(e. target. value); 
         setPassword(e. target.value);
     };
     
-    const handlerSubmit = (e) => {
-        e.preventDefault();
-        if (email.isValid){
-            props.onLogin(email, password);
+    const handlerSubmit = (e) => { 
+        e.preventDefault(); 
+        if (email.isValid) {
+            ctx.onLogin(email, password);
         }
         else {
-            console.log("Email invalido");
+            console.log("email no valido");
         }
     };
     
@@ -55,7 +55,7 @@ const Login =(props) => {
         <Card>
             <form onSubmit ={handlerSubmit}>
                 <label>Email</label>
-                <input type="text" onChange={emailChangeHandler} />
+                <input type="email" onChange={emailChangeHandler} />
                 <label>Password</label> 
                 <input type="password" onChange={passwordChangeHandler} />
                 <Button>Login</Button>
